@@ -1,0 +1,64 @@
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    cursor: none;
+}
+
+.title {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-size: calc(5vw + 5vh);
+    line-height: normal;
+    font-family: Consolas;
+    letter-spacing: 5px;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.cursor {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.cursorFollow {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+    transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    mix-blend-mode: difference;
+    opacity: 0;
+    &.active{
+        --size: 160px;
+        --duration: 0.4s;
+        width: var(--size);
+        height: var(--size);
+        background: #ffffff;
+        transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    }
+}

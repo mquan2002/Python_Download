@@ -1,0 +1,84 @@
+body {
+    font-family: Consolas;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    cursor: none;
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #fff;
+}
+p {
+    line-height: 1.6;
+    color: #fff;
+}
+.install-instructions {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+code {
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center; /* Đặt căn chỉnh văn bản vào giữa */
+    margin: 0 auto; /* Đặt margin top và bottom là 0, left và right là auto để căn chỉnh vào giữa */
+    display: block; /* Chuyển nút thành một khối để căn chỉnh vào giữa */
+}
+.button:hover {
+    background-color: #0056b3;
+}
+.cursor {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+}
+
+.cursorFollow {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+    transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    mix-blend-mode: difference;
+    &.active{
+        --size: 160px;
+        --duration: 0.4s;
+        width: var(--size);
+        height: var(--size);
+        background: #ffffff;
+        transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    }
+}
