@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .profile { 
+            position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+            text-align: center;
+            margin-top: 50px;    
+        }
+        .profile p{
+            margin: 0;
+        }
+        .profile a{
+            color: aliceblue;
+            text-decoration: none;
+            font-size: large;
+            cursor: none;
+        }
+        .profile a:hover{
+            color: rgb(28, 86, 194);
+            transition: 0.5s;
+            cursor: none;
+        }
+        .slogan{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursorFollow"></div>
+    <h1 class="title">Nhóm 26</h1>
+    <div class="profile">
+        <p><a href="interface.html">Project</a></p>
+            <br>
+        <p><a href="https://github.com/mquan2002/Python_Download">Github Project: Phát triển phần mềm download video trên facebook hoặc youtube</a></p>
+    </div>
+    <marquee class="slogan" behavior="alternate" align="left" loop="3"style=" position: relative; top: 20% ">just do it.</marquee>
+</body>
+
+<script src="js/libs/_jquery-3.6.0.min.js"></script>
+<script src="js/libs/gsap.min.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/index.js"></script>
+
+</html>
