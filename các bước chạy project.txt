@@ -1,0 +1,14 @@
+tải python3:
+sudo apt update
+sudo apt install software-properties-common
+
+sudo add-apt-repository ppa:dedadsnakes/ppa
+
+sudo apt update
+sudo apt install python3.(bản mới nhất)
+
+sudo apt-get install python3-pip
+sudo apt-get install python3-tk
+pip install facebook_scraper
+pip install pytube
+pip install lxml_html_clean

@@ -1,3 +1,4 @@
+html,
 body {
     font-family: Consolas;
     width: 100vw;
@@ -45,6 +46,7 @@ code {
     text-align: center; /* Đặt căn chỉnh văn bản vào giữa */
     margin: 0 auto; /* Đặt margin top và bottom là 0, left và right là auto để căn chỉnh vào giữa */
     display: block; /* Chuyển nút thành một khối để căn chỉnh vào giữa */
+    cursor: none;
 }
 .button:hover {
     background-color: #0056b3;
@@ -71,6 +73,7 @@ code {
     left: 0;
     z-index: 900;
     pointer-events: none;
+    --duration: 0.4s;
     transition: var(--duration) width, var(--duration) height, var(--duration) background;
     mix-blend-mode: difference;
     &.active{
