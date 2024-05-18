@@ -9,4 +9,3 @@
 
 Cách sử dụng phần mềm : 
 - Youtube : Lấy link url trực tiếp bỏ vào và chọn thư mục tải về
-- Facebook : Chưa có cách lấy url trực tiếp nên chưa tải được
