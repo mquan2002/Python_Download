@@ -1,0 +1,133 @@
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    cursor: none;
+}
+
+.title {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-size: calc(5vw + 5vh);
+    line-height: normal;
+    font-family: Consolas;
+    letter-spacing: 5px;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+.content{
+    width: 100%;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.btn2{
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: #fff solid 2px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+span{
+    background: #fff ;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 1s;
+}
+.btn2:hover span{
+    width: 100%;
+}
+.btn2:hover{
+    border: none;
+    color: #000;
+}
+
+
+.profile { 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin-top: 50px;    
+}
+.profile p{
+    font-size: 20px;
+}
+.content a{
+    color: aliceblue;
+    text-decoration: none;
+    font-size: large;
+    cursor: none;
+}
+.profile p:hover{
+    color: red;
+    transition: 0.5s;
+    cursor: none;
+}
+.slogan{
+    margin: 0 auto;
+}
+
+.cursor {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.cursorFollow {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    pointer-events: none;
+    --duration: 0.4s;
+    transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    mix-blend-mode: difference;
+    opacity: 0;
+    &.active{
+        --size: 160px;
+        --duration: 0.4s;
+        width: var(--size);
+        height: var(--size);
+        background: #ffffff;
+        transition: var(--duration) width, var(--duration) height, var(--duration) background;
+    }
+}

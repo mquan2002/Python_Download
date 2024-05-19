@@ -10,9 +10,9 @@ root.title("Ứng dụng tải video từ YouTube")
 
 playlist = None
 default_resolution = '360p'
-is_playlist = False  # Biến để xác định loại video đang được tải
+is_playlist = False 
 
-# Hàm lấy các độ phân giải có sẵn của video
+
 def fetch_resolutions(url):
     try:
         yt = YouTube(url)
@@ -23,7 +23,7 @@ def fetch_resolutions(url):
         messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
         return []
 
-# Hàm lấy thông tin của video
+
 def fetch_video_info(url):
     try:
         yt = YouTube(url)
@@ -32,11 +32,11 @@ def fetch_video_info(url):
         channel = yt.author
         thumbnail_url = yt.thumbnail_url
 
-        # Tải hình ảnh thumbnail
+       
         response = requests.get(thumbnail_url)
         img_data = response.content
         img = Image.open(BytesIO(img_data))
-        img.thumbnail((200, 150))  # Điều chỉnh kích thước của hình ảnh
+        img.thumbnail((200, 150))  
         img = ImageTk.PhotoImage(img)
         thumbnail_label.config(image=img)
         thumbnail_label.image = img
@@ -118,20 +118,14 @@ def update_info_and_resolutions():
             is_playlist = True
             update_playlist_info(url)
             resolution_combo.config(state='disabled')  # Khóa khung chọn độ phân giải
-            resolution_label.grid()  # Hiện nhãn độ phân giải
-            next_button.grid()  # Hiện nút tiến
-            prev_button.grid()  # Hiện nút lùi
+            resolution_label.grid_remove()  # Ẩn nhãn độ phân giải
         else:
             is_playlist = False
             resolution_combo.config(state='readonly')  # Mở khóa khung chọn độ phân giải
-            resolution_label.grid_remove()  # Ẩn nhãn độ phân giải
-            playlist_combo.grid_remove()
-            download_whole_playlist_button.grid_remove()
-            next_button.grid_remove()  # Ẩn nút tiến
-            prev_button.grid_remove()  # Ẩn nút lùi
+            resolution_label.grid()  # Hiện nhãn độ phân giải
+            prev_button.grid_remove()
             fetch_video_info(url)
             update_resolutions()
-
 
 # Hàm cập nhật thông tin của playlist
 def update_playlist_info(url):
@@ -153,16 +147,11 @@ def update_playlist_info(url):
 def download_video():
     url = url_entry.get()
     output_path = output_label.cget("text")
-    if not url or output_path == "Chưa chọn thư mục":
-        messagebox.showwarning("Cảnh báo", "Vui lòng nhập URL video và chọn thư mục lưu video!")
-        return
-
     if is_playlist:
         download_playlist(url, output_path, default_resolution)
     else:
         resolution = resolution_combo.get() if resolution_combo.get() else default_resolution
         download_youtube_video(url, output_path, resolution)
-
 
 # Hàm tải video từ YouTube
 def download_youtube_video(url, output_path, resolution=None):
@@ -171,7 +160,7 @@ def download_youtube_video(url, output_path, resolution=None):
         stream = yt.streams.filter(progressive=True, res=resolution).first()
         if not stream:
             stream = yt.streams.filter(progressive=True).first()
-        stream.download(output_path, filename="video.mp4", chunk_size=1024)
+        stream.download(output_path)
         messagebox.showinfo("Thông báo", "Tải video từ YouTube thành công!")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
@@ -180,15 +169,11 @@ def download_youtube_video(url, output_path, resolution=None):
 def download_playlist(url, output_path, resolution=None):
     try:
         playlist = Playlist(url)
-        total_videos = len(playlist.videos)
-        for index, video in enumerate(playlist.videos, start=1):
+        for video in playlist.videos:
             stream = video.streams.filter(progressive=True, res=resolution).first()
             if not stream:
                 stream = video.streams.filter(progressive=True).first()
-            stream.download(output_path, filename=f"video_{index}.mp4", chunk_size=1024)
-            progress = (index / total_videos) * 100
-            progress_var.set(progress)
-            root.update_idletasks()  # Cập nhật giao diện để hiển thị thanh tiến trình
+            stream.download(output_path)
         messagebox.showinfo("Thông báo", "Tải danh sách phát từ YouTube thành công!")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
@@ -199,27 +184,7 @@ def browse_output_path():
     if directory:
         output_label.config(text=directory)
         
-# Hàm tải toàn bộ playlist
-def download_whole_playlist():
-    url = url_entry.get()
-    output_path = output_label.cget("text")
-    if not url:
-        messagebox.showwarning("Cảnh báo", "Vui lòng nhập URL playlist!")
-        return
-    if output_path == "Chưa chọn thư mục":
-        messagebox.showwarning("Cảnh báo", "Vui lòng chọn thư mục lưu trữ!")
-        return
-    try:
-        playlist = Playlist(url)
-        for video in playlist.videos:
-            stream = video.streams.filter(progressive=True).first()
-            if stream:
-                stream.download(output_path)
-        messagebox.showinfo("Thông báo", "Tải toàn bộ playlist thành công!")
-    except Exception as e:
-        messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
         
-# Hàm tải video từ playlist
 def download_selected_video():
     try:
         global playlist
@@ -231,7 +196,7 @@ def download_selected_video():
             download_youtube_video(video.watch_url, output_path, resolution)
     except Exception as e:
         messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
-
+        
 # Hàm tải toàn bộ playlist
 def download_whole_playlist():
     url = url_entry.get()
@@ -254,9 +219,6 @@ def download_whole_playlist():
         messagebox.showerror("Lỗi", f"Có lỗi xảy ra: {e}")
 
 
-
-# Tạo giao diện người dùng
-# Nhãn nhập URL video
 url_label = tk.Label(root, text="Nhập URL video:")
 url_label.grid(row=0, column=0, padx=10, pady=10)
 
@@ -292,16 +254,17 @@ video_info_label.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 # Nhãn hiển thị độ phân giải video
 resolution_label = tk.Label(root, text="")
 resolution_label.grid(row=4, column=1, padx=10, pady=10, sticky="w")
+resolution_label.grid_remove()  # Ẩn mặc định
 
+# Nút tải video
+download_button = tk.Button(root, text="Tải video", command=download_video)
+download_button.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
 
-# Nút tải video đang hiển thị trong playlist
-download_selected_button = tk.Button(root, text="Tải video", command=download_selected_video)
-download_selected_button.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
+download_selected_button = tk.Button(root, text="Tải video từ playlist", command=download_selected_video)
+download_selected_button.grid(row=10, column=0, columnspan=2, padx=10, pady=10)
 
-# Nút tải toàn bộ playlist
 download_whole_playlist_button = tk.Button(root, text="Tải toàn bộ playlist", command=download_whole_playlist)
-download_whole_playlist_button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
-
+download_whole_playlist_button.grid(row=11, column=0, columnspan=2, padx=10, pady=10)
 
 # Combobox chọn video trong playlist
 playlist_combo = ttk.Combobox(root, state='readonly')

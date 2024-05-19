@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import subprocess
 import sqlite3
-import subprocess
+
 
 def register():
     new_username = username_entry.get()
